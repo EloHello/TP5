@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageButton
+            android:id="@+id/feu"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="false"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/feu" />
+
+        <ImageButton
+            android:id="@+id/compte"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorAccent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/pictogramme" />
+
+        <ImageButton
+            android:id="@+id/messagerie"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorAccent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/star" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/photoCompare"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        app:srcCompat="@drawable/bonhomme" />
+
+    <android.support.v4.view.ViewPager
+
+        android:id="@+id/view_pager"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent" />
+
+
+    <ImageView
+        android:id="@+id/photoSwipe"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/bonhomme" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25">
+
+        <ImageButton
+            android:id="@+id/like"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="100dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorAccent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/heart" />
+
+        <ImageButton
+            android:id="@+id/dislike"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@id/like"
+            android:layout_alignParentLeft="false"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorAccent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/x2" />
+    </RelativeLayout>
+</LinearLayout>

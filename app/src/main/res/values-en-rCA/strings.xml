@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TP2</string>
+    <string name="age">Age</string>
+    <string name="email">Email</string>
+    <string name="modifInfo">Edit information</string>
+    <string name="modifPhoto">Change/add picture</string>
+    <string name="motDePasse">Password</string>
+    <string name="nomUtilisateur">Username</string>
+    <string name="prenom">First name</string>
+    <string name="nom">Last name</string>
+    <string name="login">Create an account</string>
+    <string name="mdp">Password</string>
+</resources>
