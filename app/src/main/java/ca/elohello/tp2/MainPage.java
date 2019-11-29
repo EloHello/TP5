@@ -45,29 +45,31 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+ //       ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
         ImageAdapter adapter = new ImageAdapter(this); //Here we are defining the Imageadapter object
 
-        viewPager.setAdapter(adapter);
+   //     viewPager.setAdapter(adapter);
 
         imageSwipe = (ImageView) findViewById(R.id.photoSwipe);
+
         imageSwipe.setOnTouchListener(new OnSwipeTouchListener(MainPage.this) {
             public void onSwipeTop() {
                 Toast.makeText(MainPage.this, "top", Toast.LENGTH_SHORT).show();
+                System.out.println("top");
             }
             public void onSwipeRight() {
                 Toast.makeText(MainPage.this, "right", Toast.LENGTH_SHORT).show();
+                System.out.println("right");
             }
             public void onSwipeLeft() {
                 Toast.makeText(MainPage.this, "left", Toast.LENGTH_SHORT).show();
+                System.out.println("left");
             }
             public void onSwipeBottom() {
+                System.out.println("bottom");
                 Toast.makeText(MainPage.this, "bottom", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
-
-
 }
