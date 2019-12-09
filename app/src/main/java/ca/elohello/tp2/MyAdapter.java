@@ -52,7 +52,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public void display(Image list) {
             currentPerson = list;
-            System.out.println("HAHAHAHAHA" + list.getBitmap());
 
             imageViewer.setImageBitmap(currentPerson.getBitmap());
             name.setText(list.getNomImage());

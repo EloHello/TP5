@@ -63,11 +63,7 @@ public class TopImages extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
-
 
     public void setup(ArrayList<Image> list)
     {
@@ -78,7 +74,6 @@ public class TopImages extends AppCompatActivity {
 
     private class JsonTask extends AsyncTask<String, String, String> {
 
-        private ArrayList<Image> img = new ArrayList<>();
         protected void onPreExecute() {
             super.onPreExecute();
 
@@ -145,11 +140,6 @@ public class TopImages extends AppCompatActivity {
             images = readJson(result);
 
             setup(images);
-        }
-
-        public ArrayList<Image> getImg()
-        {
-            return this.img;
         }
     }
 
