@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +14,11 @@ import java.util.ArrayList;
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<Image> people;
-    Messages activityMessages;
+    TopImages activityTopImages;
     String nom;
 
-    public MyAdapter(Messages activityMessages, ArrayList<Image> people) {
-        this.activityMessages = activityMessages;
+    public MyAdapter(TopImages activityTopImages, ArrayList<Image> people) {
+        this.activityTopImages = activityTopImages;
         this.people = people;
     }
 
@@ -26,11 +27,13 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView name;
 
         private Image currentPerson;
+        private ImageView imageViewer;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.nomImage);
+            imageViewer = itemView.findViewById(R.id.photoImage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,6 +52,9 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public void display(Image list) {
             currentPerson = list;
+            System.out.println("HAHAHAHAHA" + list.getBitmap());
+
+            imageViewer.setImageBitmap(currentPerson.getBitmap());
             name.setText(list.getNomImage());
         }
     }

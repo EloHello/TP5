@@ -1,8 +1,6 @@
 package ca.elohello.tp2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageHelper;
-import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity {
@@ -40,7 +37,7 @@ public class MainPage extends AppCompatActivity {
         boutonMessages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainPage.this, Messages.class);
+                Intent intent = new Intent(MainPage.this, TopImages.class);
                 startActivity(intent);
             }
         });
