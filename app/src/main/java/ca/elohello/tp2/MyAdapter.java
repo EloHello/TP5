@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -28,33 +32,28 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         private Image currentPerson;
         private ImageView imageViewer;
+        private TextView imgPosition;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.nomImage);
             imageViewer = itemView.findViewById(R.id.photoImage);
+            imgPosition = itemView.findViewById(R.id.positionImage);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    nom = currentPerson.getNomImage();
-
-                    System.out.println(nom);
-
-                    Intent intent = new Intent(view.getContext(), MainActivity.class);
-                    //intent.putExtra("unite", unite);
-                    view.getContext().startActivity(intent);
                 }
             });
         }
 
         public void display(Image list) {
             currentPerson = list;
-
-            imageViewer.setImageBitmap(currentPerson.getBitmap());
-            name.setText(list.getNomImage());
+            Picasso.get().load(currentPerson.getImagePath()).into(imageViewer);
+            //name.setText(list.getNomImage());
+            imgPosition.setText(String.valueOf(currentPerson.getPosition()) + ".");
         }
     }
 
@@ -73,6 +72,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return people.size();
+        return (people != null) ? people.size() : 0;
     }
 }

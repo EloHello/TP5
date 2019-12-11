@@ -12,9 +12,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +38,9 @@ public class TopImages extends AppCompatActivity {
     ImageButton boutonCompte;
     ProgressDialog pd;
 
+    public static final String url = "http://192.168.0.163/projects/TinderTesting/";
+    //public static final String url = "http://ratethis.benliam12.net/";
+
     private ArrayList<Image> images = new ArrayList<>();
 
     @Override
@@ -42,7 +48,12 @@ public class TopImages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages);
         JsonTask jsonTask = new JsonTask();
-        jsonTask.execute("http://ratethis.benliam12.net/program.php?test");
+        //jsonTask.execute("http://ratethis.benliam12.net/program.php?test");
+        jsonTask.execute(url + "program.php?topImage");
+
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(TopImages.this, images));
 
         boutonFeu = (ImageButton)findViewById(R.id.feu);
 
@@ -61,17 +72,20 @@ public class TopImages extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TopImages.this, AccountInfo.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
     public void setup(ArrayList<Image> list)
     {
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setAdapter(new MyAdapter(TopImages.this, list));
     }
 
+    /**
+     * Private class to load up JSON Data from web site URL
+     */
     private class JsonTask extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
@@ -79,13 +93,12 @@ public class TopImages extends AppCompatActivity {
 
             pd = new ProgressDialog(TopImages.this);
             pd.setMessage("Please wait");
+            pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pd.setCancelable(false);
             pd.show();
         }
 
         protected String doInBackground(String... params) {
-
-
             HttpURLConnection connection = null;
             BufferedReader reader = null;
 
@@ -107,9 +120,7 @@ public class TopImages extends AppCompatActivity {
                     Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
                 }
-
                 return buffer.toString();
-
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -136,9 +147,7 @@ public class TopImages extends AppCompatActivity {
             if (pd.isShowing()){
                 pd.dismiss();
             }
-
             images = readJson(result);
-
             setup(images);
         }
     }
@@ -150,13 +159,9 @@ public class TopImages extends AppCompatActivity {
             ArrayList<Image> images = new ArrayList<>();
 
             for (int i = 0; i < tester.length(); i++) {
-                Image image = new Image("Bobinette");
                 JSONObject object = tester.getJSONObject(i);
-                DlImage dlImage = new DlImage(image);
-                dlImage.execute("http://ratethis.benliam12.net/" + object.getString("path"));
-                image = dlImage.getImage();
-                new DlImage(image).execute("http://ratethis.benliam12.net/" + object.getString("path"));
-
+                String path = url + object.getString("path");
+                Image image = new Image("Bobinette", path, i+1);
                 images.add(image);
             }
 
@@ -169,41 +174,5 @@ public class TopImages extends AppCompatActivity {
         }
 
         return null;
-    }
-
-    private class DlImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-        Image image;
-
-        public DlImage(Image image) {
-            this.image = image;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            this.image.setBitmap(result);
-        }
-
-        public Image getImage()
-        {
-            return this.image;
-        }
-    }
-
-    public void loadImage(String url)
-    {
-
     }
 }

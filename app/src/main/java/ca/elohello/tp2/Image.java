@@ -4,27 +4,39 @@ import android.graphics.Bitmap;
 
 public class Image {
     protected String nomImage;
-    protected Bitmap bitmap;
+    protected String imagePath;
+    protected int position;
 
     public Image(String nomImage) {
         this.nomImage = nomImage;
-        this.bitmap = null;
+        this.imagePath = null;
     }
 
-    public Image(String nomImage, Bitmap bitmap)
+    public Image(String nomImage, String imagePath, int position)
     {
         this.nomImage = nomImage;
-        this.bitmap = bitmap;
+        this.imagePath = imagePath;
+        this.position = position;
     }
 
-    public Bitmap getBitmap()
+    public String getImagePath()
     {
-        return this.bitmap;
+        return this.imagePath;
     }
 
-    public void setBitmap(Bitmap bitmap)
+    public void setImagePath(String imagePath)
     {
-        this.bitmap = bitmap;
+        this.imagePath = imagePath;
+    }
+
+    public void setPosition(int position)
+    {
+        this.position = position;
+    }
+
+    public int getPosition()
+    {
+        return this.position;
     }
 
     public String getNomImage() {
