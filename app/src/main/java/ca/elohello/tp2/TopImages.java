@@ -3,6 +3,7 @@ package ca.elohello.tp2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -37,6 +38,8 @@ public class TopImages extends AppCompatActivity {
     ImageButton boutonFeu;
     ImageButton boutonCompte;
     ProgressDialog pd;
+    private SwipeRefreshLayout swipeContainer;
+    private MyAdapter adapter;
 
     public static final String url = "http://192.168.0.163/projects/TinderTesting/";
     //public static final String url = "http://ratethis.benliam12.net/";
@@ -47,6 +50,7 @@ public class TopImages extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         JsonTask jsonTask = new JsonTask();
         //jsonTask.execute("http://ratethis.benliam12.net/program.php?test");
         jsonTask.execute(url + "program.php?topImage");
@@ -72,15 +76,40 @@ public class TopImages extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TopImages.this, AccountInfo.class);
                 startActivity(intent);
-                finish();
             }
         });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+
+                new JsonTask().execute(url + "program.php?topImage");
+            }
+        });
+
+        // Lookup the swipe container view
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
+    /**
+     * Adding the list of images to the program.
+     * @param list
+     */
     public void setup(ArrayList<Image> list)
     {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setAdapter(new MyAdapter(TopImages.this, list));
+
+        if(swipeContainer != null)
+        {
+            swipeContainer.setRefreshing(false);
+        }
     }
 
     /**
@@ -88,33 +117,28 @@ public class TopImages extends AppCompatActivity {
      */
     private class JsonTask extends AsyncTask<String, String, String> {
 
+        private boolean refresh = false;
+
         protected void onPreExecute() {
             super.onPreExecute();
-
-            pd = new ProgressDialog(TopImages.this);
-            pd.setMessage("Please wait");
-            pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pd.setCancelable(false);
-            pd.show();
+            if(swipeContainer != null) // Little check to be sure the swipeContainer actually exits. To prevent stupid crashes
+            {
+                swipeContainer.setRefreshing(true);
+            }
         }
 
+        // Loading up the juicy data.
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-
             try {
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
-
-
                 InputStream stream = connection.getInputStream();
-
                 reader = new BufferedReader(new InputStreamReader(stream));
-
                 StringBuffer buffer = new StringBuffer();
                 String line = "";
-
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
                     Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
@@ -144,9 +168,6 @@ public class TopImages extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (pd.isShowing()){
-                pd.dismiss();
-            }
             images = readJson(result);
             setup(images);
         }

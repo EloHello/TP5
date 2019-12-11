@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -68,6 +69,18 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
         Image t = people.get(position);
         holder.display(t);
+    }
+
+    public void clear()
+    {
+        people.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setNewList(ArrayList<Image> people)
+    {
+        this.people = people;
+        notifyDataSetChanged();
     }
 
     @Override
