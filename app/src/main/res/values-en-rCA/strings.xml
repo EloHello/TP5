@@ -11,4 +11,5 @@
     <string name="nom">Last name</string>
     <string name="login">Create an account</string>
     <string name="mdp">Password</string>
+    <string name="userName">Username</string>
 </resources>

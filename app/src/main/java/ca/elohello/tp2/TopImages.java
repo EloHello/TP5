@@ -41,6 +41,9 @@ public class TopImages extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
     private MyAdapter adapter;
 
+    //Base URL to gather the data.
+    //TODO : Make this customizable into the Pref, in case server change location.
+
     public static final String url = "http://192.168.0.163/projects/TinderTesting/";
     //public static final String url = "http://ratethis.benliam12.net/";
 
@@ -173,6 +176,11 @@ public class TopImages extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that read the JSON data and put them in the recycle view.
+     * @param data JSON data in String form.
+     * @return Array Of Image.
+     */
     public ArrayList<Image> readJson(String data) {
         try {
             JSONArray tester = new JSONArray(data);
@@ -182,7 +190,7 @@ public class TopImages extends AppCompatActivity {
             for (int i = 0; i < tester.length(); i++) {
                 JSONObject object = tester.getJSONObject(i);
                 String path = url + object.getString("path");
-                Image image = new Image("Bobinette", path, i+1);
+                Image image = new Image("Bobinette", path, i+1, object.getInt("rating"));
                 images.add(image);
             }
 
@@ -191,7 +199,7 @@ public class TopImages extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
-            Toast.makeText(this, "Can't retreive data =(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Internet!", Toast.LENGTH_SHORT).show();
         }
 
         return null;

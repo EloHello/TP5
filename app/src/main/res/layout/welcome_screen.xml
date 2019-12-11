@@ -40,7 +40,7 @@
         android:layout_marginBottom="15dp"
         android:layout_weight="2"
         android:hint="@string/motDePasse"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:textColorHint="@color/colorPrimaryDark"
         android:textSize="24dp" />

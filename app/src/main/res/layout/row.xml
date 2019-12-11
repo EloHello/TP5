@@ -28,6 +28,12 @@
         android:layout_marginRight="121dp"
         android:layout_toEndOf="@+id/positionImage"
         android:layout_toRightOf="@+id/positionImage" />
-
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="1." />
 
 </RelativeLayout>
