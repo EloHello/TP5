@@ -86,7 +86,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         }
 
         new DownloadImageTask((ImageView) itemView.findViewById(R.id.image))
-                .execute("http://ratethis.benliam12.net/" + image.get(position));
+                .execute(TopImages.url + image.get(position));
 
 
         // Add viewpager_item.xml to ViewPager
