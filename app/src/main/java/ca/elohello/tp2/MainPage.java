@@ -27,10 +27,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainPage extends AppCompatActivity {
 
@@ -40,6 +45,8 @@ public class MainPage extends AppCompatActivity {
     ProgressDialog pd;
     ArrayList<Integer> ids = new ArrayList<>();
     ArrayList<String> urls = new ArrayList<>();
+
+    private int TopID = 1;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -195,6 +202,66 @@ public class MainPage extends AppCompatActivity {
                         }
                     }
                 }
+                class DataSender extends AsyncTask<String, Void, String> {
+
+                    String result = "";
+
+                    String urlString;
+                    HashMap<String, String> fields;
+
+                    public DataSender(HashMap<String, String> data, String urlString)
+                    {
+                        this.urlString = urlString;
+                        this.fields = data;
+                    }
+
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        BufferedReader reader=null;
+                        String result = "";
+                        try
+                        {
+                            String data = "";
+
+                            for(Map.Entry<String, String> entry : this.fields.entrySet())
+                            {
+                                data += URLEncoder.encode(entry.getKey(), "UTF-8") + "=" + URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
+                            }
+
+                            URL url = new URL(urlString);
+
+                            // Send POST data request
+                            URLConnection conn = url.openConnection();
+                            conn.setDoOutput(true);
+                            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                            wr.write( data );
+                            wr.flush();
+
+                            // Get the server response
+                            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                            StringBuilder sb = new StringBuilder();
+                            String line = null;
+
+                            // Read Server Response
+                            while((line = reader.readLine()) != null)
+                            {
+                                // Append server response in string
+                                sb.append(line + "\n");
+                            }
+                            result = sb.toString();
+                        }
+                        catch(Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                        return result;
+                    }
+
+                    @Override
+                    protected void onPostExecute(String result) {
+                        super.onPostExecute(result);
+                    }
+                }
 
                 ViewPager viewPager = (ViewPager) findViewById(R.id.photoSwipe);
 
@@ -207,13 +274,34 @@ public class MainPage extends AppCompatActivity {
 
                     @Override
                     public void onPageSelected(int position) {
-                        if(lastpos < position){
+                        HashMap<String, String> datas = new HashMap<>();
+                        int loser=1;
+                        int winner=1;
+
+                        if(lastpos < position){ // DROITE
+
                             ImageView im = (ImageView) findViewById(R.id.photoCompare);
 
                             new DownloadImageTask(im)
-                                    .execute("http://ratethis.benliam12.net/" + urls.get(lastpos));
-                        }
+                                    .execute(TopImages.url + urls.get(lastpos));
 
+                            loser = TopID;
+                            TopID = ids.get(lastpos); // Nouveau champion
+                            winner = TopID;
+                        }
+                        else if(lastpos > position) // GAUCHE
+                        {
+                            winner = TopID;
+                            loser = ids.get(lastpos);
+
+                        }
+                        datas.put("user", "1");
+                        datas.put("upVote", String.valueOf(winner));
+                        datas.put("downVote", String.valueOf(loser));
+
+                        System.out.println("WINNER : " + String.valueOf(winner) + " -- LOSER : " + String.valueOf(loser));
+
+                        new DataSender(datas, TopImages.url + "program.php").execute();
                         lastpos = position;
                     }
 
@@ -229,7 +317,7 @@ public class MainPage extends AppCompatActivity {
             }
         }
 
-        new JsonTask().execute("http://ratethis.benliam12.net/program.php?test");
+        new JsonTask().execute(TopImages.url + "program.php?test");
 
     }
 }

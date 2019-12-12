@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         {
             this.urlString = urlString;
             this.fields = data;
-
         }
 
         @Override
