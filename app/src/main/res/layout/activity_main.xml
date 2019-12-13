@@ -55,19 +55,36 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/photoCompare"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.75"
-        app:srcCompat="@drawable/bonhomme" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/photoSwipe"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bonhomme" />
+        >
+
+        <ImageView
+            android:id="@+id/photoCompare"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bonhomme" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/photoSwipe"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bonhomme" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

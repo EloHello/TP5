@@ -10,34 +10,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ViewPagerAdapter extends PagerAdapter {
     Context context;
-    ArrayList<String> image;
-    ArrayList<Integer> id;
+    ArrayList<String> images;
+    ArrayList<Integer> ids;
     LayoutInflater inflater;
 
 
-    public ViewPagerAdapter(Context context, ArrayList<Integer> id, ArrayList<String> image) {
+    public ViewPagerAdapter(Context context, ArrayList<Integer> ids, ArrayList<String> images) {
         this.context = context;
-        this.image = image;
-        this.id = id;
+        this.images = images;
+        this.ids = ids;
     }
 
     @Override
     public int getCount() {
-        return id.size();
+        return ids.size();
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ((RelativeLayout) object);
     }
 
     @Override
@@ -86,7 +88,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         }
 
         new DownloadImageTask((ImageView) itemView.findViewById(R.id.image))
-                .execute(TopImages.url + image.get(position));
+                .execute("http://ratethis.benliam12.net/" + images.get(position));
 
 
         // Add viewpager_item.xml to ViewPager
@@ -98,7 +100,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         // Remove viewpager_item.xml from ViewPager
-        ((ViewPager) container).removeView((LinearLayout) object);
+        ((ViewPager) container).removeView((RelativeLayout) object);
 
     }
 }
