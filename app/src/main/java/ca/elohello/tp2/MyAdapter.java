@@ -54,11 +54,9 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-
             imageViewer = itemView.findViewById(R.id.photoImage);
             imgPosition = itemView.findViewById(R.id.positionImage);
             imgRating = itemView.findViewById(R.id.rating);
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
