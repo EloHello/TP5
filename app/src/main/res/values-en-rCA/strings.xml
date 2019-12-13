@@ -18,4 +18,5 @@
     <string name="alreadyUser">Username already exists!</string>
     <string name="darkmode">Darkmode</string>
     <string name="confirmPrefs">Confirm</string>
+    <string name="language">Language</string>
 </resources>

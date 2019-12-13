@@ -62,8 +62,9 @@
         android:paddingRight="30dp">
 
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch2"
+            style="@style/SwitchCompatStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/darkmode" />
@@ -72,16 +73,20 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/nouveauAge"
+                android:id="@+id/language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/age"
+                android:layout_marginEnd="86dp"
+                android:layout_marginRight="86dp"
+                android:layout_toStartOf="@+id/spinnerLangue"
+                android:layout_toLeftOf="@+id/spinnerLangue"
+                android:text="@string/language"
                 android:textColor="@color/colorPrimary"
                 app:fontFamily="sans-serif-smallcaps" />
 
             <Spinner
-                android:id="@+id/spinnerAge"
+                android:id="@+id/spinnerLangue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
