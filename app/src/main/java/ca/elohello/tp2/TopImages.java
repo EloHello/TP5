@@ -44,8 +44,8 @@ public class TopImages extends AppCompatActivity {
     //Base URL to gather the data.
     //TODO : Make this customizable into the Pref, in case server change location.
 
-    //public static final String url = "http://192.168.0.163/projects/TinderTesting/";
-    public static final String url = "http://ratethis.benliam12.net/";
+    public static final String url = "http://192.168.0.163/projects/TinderTesting/";
+    //public static final String url = "http://ratethis.benliam12.net/";
 
     private ArrayList<Image> images = new ArrayList<>();
 

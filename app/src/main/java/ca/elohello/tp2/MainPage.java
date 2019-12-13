@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -103,8 +104,6 @@ public class MainPage extends AppCompatActivity {
             }
 
             protected String doInBackground(String... params) {
-
-
                 HttpURLConnection connection = null;
                 BufferedReader reader = null;
 
@@ -112,8 +111,6 @@ public class MainPage extends AppCompatActivity {
                     URL url = new URL(params[0]);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.connect();
-
-
                     InputStream stream = connection.getInputStream();
 
                     reader = new BufferedReader(new InputStreamReader(stream));
@@ -126,10 +123,7 @@ public class MainPage extends AppCompatActivity {
                         Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
                     }
-
                     return buffer.toString();
-
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -267,7 +261,6 @@ public class MainPage extends AppCompatActivity {
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.photoSwipe);
 
 
-
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     int lastpos = 0;
                     boolean b = true;
@@ -359,10 +352,26 @@ public class MainPage extends AppCompatActivity {
                 // Binds the Adapter to the ViewPager
                 viewPager.setAdapter(adapter);
                 viewPager.setCurrentItem(2);
+
+                ImageButton xBtn = (ImageButton) findViewById(R.id.dislike);
+                xBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPager.setCurrentItem(3);
+                    }
+                });
+
+                ImageButton yBtn = (ImageButton) findViewById(R.id.like);
+                yBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPager.setCurrentItem(1);
+                    }
+                });
+
+
             }
         }
-
         new JsonTask().execute(TopImages.url + "program.php?test");
-
     }
 }

@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
@@ -87,9 +89,7 @@ public class ViewPagerAdapter extends PagerAdapter {
             }
         }
 
-        new DownloadImageTask((ImageView) itemView.findViewById(R.id.image))
-                .execute("http://ratethis.benliam12.net/" + images.get(position));
-
+        Picasso.get().load(TopImages.url + images.get(position)).into((ImageView) itemView.findViewById(R.id.image));
 
         // Add viewpager_item.xml to ViewPager
         ((ViewPager) container).addView(itemView);
