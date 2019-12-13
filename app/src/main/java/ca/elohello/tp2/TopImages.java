@@ -35,9 +35,9 @@ import java.util.ArrayList;
 
 public class TopImages extends AppCompatActivity {
 
-    ImageButton boutonFeu;
-    ImageButton boutonCompte;
-    ProgressDialog pd;
+    private ImageButton boutonFeu;
+    private ImageButton boutonCompte;
+    private ProgressDialog pd;
     private SwipeRefreshLayout swipeContainer;
     private MyAdapter adapter;
 

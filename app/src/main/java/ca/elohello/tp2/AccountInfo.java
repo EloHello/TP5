@@ -2,9 +2,13 @@ package ca.elohello.tp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,35 +21,38 @@ public class AccountInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_screen);
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new MyPreferenceFragment())
+                .commit();
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        //Intent intent = getIntent();
-        //Personne un = (Personne) getIntent().getSerializableExtra("personne");
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 
-        final Personne moi = new Personne("Felix", "Tremblay", "asdfghj", 18);
+    }
 
-        info = (TextView) findViewById(R.id.infoPersonnelle);
-        info.setText(moi.getName() + " " + moi.getLastName() + ", " + moi.getAge() + "\n" + moi.getEmail());
+    public static class MyPreferenceFragment extends PreferenceFragment {
+        @SuppressLint("ResourceType")
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preferences);
 
-        boutonMessages = (ImageButton) findViewById(R.id.messagerie);
+            ListPreference listPreference = (ListPreference) findPreference("liste");
+            CharSequence currText = listPreference.getEntry();
+            String currValue = listPreference.getValue();
 
-        boutonMessages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountInfo.this, TopImages.class);
-                startActivity(intent);
-            }
-        });
-
-        boutonFeu = (ImageButton)findViewById(R.id.feu);
-
-        boutonFeu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountInfo.this, MainPage.class);
-                startActivity(intent);
-            }
-        });
-
+            final SwitchPreference dark = (SwitchPreference) findPreference("switch_preference_1");
+            dark.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object o) {
+                    if (dark.isChecked()) {
+                        dark.setChecked(false);
+                    } else {
+                        dark.setChecked(true);
+                    }
+                    return false;
+                }
+            });
+        }
     }
 }
