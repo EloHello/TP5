@@ -27,6 +27,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the class that handle the CreateAccount page.
+ * @author William D'Anjou
+ * @version 1.0
+ */
 public class CreateAccount extends AppCompatActivity {
 
     int age;
@@ -38,6 +43,10 @@ public class CreateAccount extends AppCompatActivity {
     EditText email;
     EditText password;
 
+    /**
+     * Create the page as it should be.
+     * @param savedInstanceState Old instance if found.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +94,10 @@ public class CreateAccount extends AppCompatActivity {
         });
     }
 
-    public void register()
+    /**
+     * Make register request to server in order to make an account.
+     */
+    private void register()
     {
         String username = this.username.getText().toString();
         String firstName = this.firstName.getText().toString();
@@ -115,11 +127,14 @@ public class CreateAccount extends AppCompatActivity {
         else
         {
             //TODO: Make string =)
-            Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.requireFields), Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    /**
+     * Custom class to send data.
+     */
     public class DataSender extends AsyncTask<String, Void, String> {
 
         String result = "";
@@ -175,6 +190,10 @@ public class CreateAccount extends AppCompatActivity {
             return result;
         }
 
+        /**
+         * When data has been processed.
+         * @param result Result that was send by the {@link CreateAccount.DataSender#doInBackground(String...)} class.
+         */
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -195,16 +214,14 @@ public class CreateAccount extends AppCompatActivity {
                             finish();
                         }
                         else{
-                            Toast.makeText(CreateAccount.this, "UserName is already used!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateAccount.this, getString(R.string.alreadyUser), Toast.LENGTH_SHORT).show();
                         }
-
-
                         /*Intent intent = new Intent(CreateAccount.this, MainPage.class);
                         startActivity(intent);*/
                     }
                     else
                     {
-                        Toast.makeText(CreateAccount.this, "WRONG OUTPUT", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, getString(R.string.serverSideError), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException ex)
                 {
@@ -213,7 +230,7 @@ public class CreateAccount extends AppCompatActivity {
             }
             else
             {
-                System.out.println("EMPTY RESULTS!");
+                Toast.makeText(CreateAccount.this, getString(R.string.nointernet), Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -52,37 +52,54 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/photoProfilAccount"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="75dp"
-        app:srcCompat="@drawable/bonhomme" />
-
-    <TextView
-        android:id="@+id/infoPersonnelle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
         android:layout_weight="1"
-        android:gravity="center" />
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp">
+
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/darkmode" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nouveauAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/age"
+                android:textColor="@color/colorPrimary"
+                app:fontFamily="sans-serif-smallcaps" />
+
+            <Spinner
+                android:id="@+id/spinnerAge"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/boutonModifInfo"
+        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:layout_weight="1"
-        android:text="@string/modifInfo" />
-
-    <Button
-        android:id="@+id/boutonModifPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_weight="1"
-        android:text="@string/modifPhoto" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/confirmPrefs" />
 
 </LinearLayout>

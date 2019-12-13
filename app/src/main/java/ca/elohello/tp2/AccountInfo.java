@@ -1,14 +1,12 @@
 package ca.elohello.tp2;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,38 +19,29 @@ public class AccountInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new MyPreferenceFragment())
-                .commit();
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        setContentView(R.layout.account_screen);
 
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
+        boutonMessages = (ImageButton) findViewById(R.id.messagerie);
+
+        boutonFeu = (ImageButton) findViewById(R.id.feu);
+
+        boutonFeu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountInfo.this, MainPage.class);
+                startActivity(intent);
+            }
+        });
+
+        boutonMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountInfo.this, TopImages.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
-    public static class MyPreferenceFragment extends PreferenceFragment {
-        @SuppressLint("ResourceType")
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.preferences);
 
-            ListPreference listPreference = (ListPreference) findPreference("liste");
-            CharSequence currText = listPreference.getEntry();
-            String currValue = listPreference.getValue();
-
-            final SwitchPreference dark = (SwitchPreference) findPreference("switch_preference_1");
-            dark.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    if (dark.isChecked()) {
-                        dark.setChecked(false);
-                    } else {
-                        dark.setChecked(true);
-                    }
-                    return false;
-                }
-            });
-        }
-    }
 }

@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -24,7 +22,12 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Main activy class, Login page.
+ * @author William D'Anjou
+ * @version 1.0
+ */
+public class MainActivity extends AppCompatActivity{
 
     Button boutonOk;
     Button boutonCreate;
@@ -73,8 +76,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
     }
 
+    /**
+     * Make a http request to server to login the user.
+     */
     public void login()
     {
         if(gatherData != null)
@@ -97,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+
 
     public class GatherData extends AsyncTask<String, Void, String>
     {
@@ -179,12 +188,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(MainActivity.this, "Wrong info user!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.wrongUser), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException ex)
                 {
+                    System.out.println(result);
+                    Toast.makeText(MainActivity.this, getString(R.string.serverSideError), Toast.LENGTH_SHORT).show();
                     ex.printStackTrace();
                 }
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this, getString(R.string.nointernet), Toast.LENGTH_SHORT).show();
             }
         }
     }
