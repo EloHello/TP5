@@ -8,6 +8,8 @@ import android.widget.Scroller;
 
 import androidx.viewpager.widget.ViewPager;
 
+import org.json.JSONException;
+
 import java.lang.reflect.Field;
 
 /**
@@ -36,14 +38,30 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
-        return false;
+        try {
+            if(!PrefManager.getInstance().getSettings().getBoolean("betafunctions"))
+            {
+                return false;
+            }
+        }
+        catch (JSONException ex)
+        {
+        }
+        return super.onInterceptTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
-        return false;
+        try {
+            if(!PrefManager.getInstance().getSettings().getBoolean("betafunctions"))
+            {
+                return false;
+            }
+        }
+        catch (JSONException ex)
+        {
+        }
+        return super.onTouchEvent(event);
     }
 
     //down one is added for smooth scrolling

@@ -70,11 +70,18 @@
             android:text="@string/notif" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch3"
+        android:id="@+id/switch3"
+        style="@style/SwitchCompatStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dataSharing" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch4"
             style="@style/SwitchCompatStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dataSharing" />
+            android:text="@string/buggyFeatures" />
 
 
 

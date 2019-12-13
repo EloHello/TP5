@@ -35,6 +35,7 @@ public class PrefManager {
         {
             object.put("notification", true);
             object.put("shareData", false);
+            object.put("betafunctions", false);
 
         } catch (JSONException ex)
         {

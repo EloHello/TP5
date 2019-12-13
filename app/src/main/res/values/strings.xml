@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TP2</string>
+    <string name="app_name">Rate this</string>
 
     <string name="login">Pas de compte? Cliquez ici.</string>
 
@@ -27,19 +27,10 @@
     <string name="language">Langue</string>
     <string name="notif" translatable="false">Notification</string>
     <string name="dataSharing">Mode économie de données</string>
+    <string name="buggyFeatures">Utiliser les fonctionalités en bêta.</string>
 
     <string name="saved">Enregistré!</string>
 
     <string name="confirmPrefs">Confirmer</string>
-
-    <string-array name="listArray">
-        <item>Français</item>
-        <item>English</item>
-    </string-array>
-
-    <string-array name="listValues">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
 
 </resources>

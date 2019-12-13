@@ -27,6 +27,7 @@ public class AccountInfo extends AppCompatActivity {
     Button button;
     SwitchCompat notif;
     SwitchCompat datas;
+    SwitchCompat beta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +72,12 @@ public class AccountInfo extends AppCompatActivity {
 
         notif = (SwitchCompat) findViewById(R.id.switch2);
         datas = (SwitchCompat) findViewById(R.id.switch3);
+        beta = (SwitchCompat) findViewById(R.id.switch4);
         try
         {
             notif.setChecked(settings.getBoolean("notification"));
             datas.setChecked(settings.getBoolean("shareData"));
+            beta.setChecked(settings.getBoolean("shareData"));
         } catch (JSONException ex)
         {
 
@@ -114,7 +117,9 @@ public class AccountInfo extends AppCompatActivity {
             JSONObject jsonObject = PrefManager.getInstance().getSettings();
             jsonObject.put("notification", notif.isChecked());
             jsonObject.put("shareData", datas.isChecked());
+            jsonObject.put("betafunctions", beta.isChecked());
             PrefManager.getInstance().updateSettings(jsonObject, this);
+            PrefManager.getInstance().setSettings(jsonObject);
 
             Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
             
