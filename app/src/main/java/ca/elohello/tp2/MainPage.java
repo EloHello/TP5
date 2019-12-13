@@ -258,7 +258,7 @@ public class MainPage extends AppCompatActivity {
                     }
                 }
 
-                final ViewPager viewPager = (ViewPager) findViewById(R.id.photoSwipe);
+                final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.photoSwipe);
 
 
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -352,6 +352,7 @@ public class MainPage extends AppCompatActivity {
                 // Binds the Adapter to the ViewPager
                 viewPager.setAdapter(adapter);
                 viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(1);
 
                 ImageButton xBtn = (ImageButton) findViewById(R.id.dislike);
                 xBtn.setOnClickListener(new View.OnClickListener() {
