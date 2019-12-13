@@ -3,6 +3,9 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#505250</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="red">#ff0000</color>
-    <color name="green">#00ff00</color>
+    <color name="thumb">#C5C5C5</color>
+    <color name="bar">#919191</color>
+    <color name="green">#2F9739</color>
+    <color name="shadow">#919191</color>
+    <color name="frame_background">#000</color>
 </resources>
