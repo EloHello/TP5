@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -308,8 +310,7 @@ public class MainPage extends AppCompatActivity {
 
                                 ImageView im = (ImageView) findViewById(R.id.photoCompare);
 
-                                new DownloadImageTask(im)
-                                        .execute(TopImages.url + surls.get(2));
+                                Picasso.get().load(TopImages.url + surls.get(2)).into(im);
 
                                 loser = TopID;
                                 TopID = sids.get(2); // Nouveau champion
@@ -334,6 +335,10 @@ public class MainPage extends AppCompatActivity {
                             sids = new ArrayList<Integer>();
                             surls = new ArrayList<String>();
                             Collections.shuffle(list);
+
+                            if(ids.get(list.get(1)) == TopID) //Prevent same image.
+                                Collections.swap(list, 0, list.size() - 1);
+
                             for (int i=0; i<4; i++) {
                                 sids.add(ids.get(list.get(i)));
                                 surls.add(urls.get(list.get(i)));

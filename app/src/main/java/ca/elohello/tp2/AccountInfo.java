@@ -77,7 +77,7 @@ public class AccountInfo extends AppCompatActivity {
         {
             notif.setChecked(settings.getBoolean("notification"));
             datas.setChecked(settings.getBoolean("shareData"));
-            beta.setChecked(settings.getBoolean("shareData"));
+            beta.setChecked(settings.getBoolean("betafunctions"));
         } catch (JSONException ex)
         {
 

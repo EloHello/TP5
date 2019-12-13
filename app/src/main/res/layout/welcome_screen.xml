@@ -27,6 +27,7 @@
         android:hint="@string/nom"
         android:inputType="text"
         android:maxLines="1"
+        android:textColor="@color/textFields"
         android:textColorHint="@color/colorPrimaryDark"
         android:textSize="24dp" />
 
@@ -42,6 +43,7 @@
         android:hint="@string/motDePasse"
         android:inputType="textPassword"
         android:maxLines="1"
+        android:textColor="@color/textFields"
         android:textColorHint="@color/colorPrimaryDark"
         android:textSize="24dp" />
 

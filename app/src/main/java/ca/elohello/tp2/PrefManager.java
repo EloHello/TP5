@@ -28,6 +28,10 @@ public class PrefManager {
     private JSONObject settings;
     private String file = "config.json";
 
+    /**
+     * Make default configuration.
+     * @return default JSON config
+     */
     public JSONObject buildDefault()
     {
         JSONObject object = new JSONObject();
@@ -41,8 +45,22 @@ public class PrefManager {
         {
 
         }
-
         return object;
+    }
+
+    /**
+     *
+     * @param jsonObject JSon object of Settings
+     * @param field Name Of the setting
+     * @param data Default value
+     * @return Current object
+     * @throws JSONException If something went wrong.
+     */
+    public JSONObject checkValues(JSONObject jsonObject, String field, Object data) throws JSONException {
+        if(!jsonObject.has(field))
+            jsonObject.put(field, data);
+
+        return jsonObject;
     }
 
     /**
@@ -57,6 +75,11 @@ public class PrefManager {
             try
             {
               JSONObject jsonObject = new JSONObject(results);
+
+                this.checkValues(jsonObject, "notification", true);
+                this.checkValues(jsonObject, "shareData", false);
+                this.checkValues(jsonObject, "betafunctions", false);
+
               this.settings = jsonObject;
             } catch (JSONException ex)
             {
@@ -70,26 +93,47 @@ public class PrefManager {
         }
     }
 
+    /**
+     * @return JSONObject Settings
+     */
     public JSONObject getSettings()
     {
         return this.settings;
     }
 
+    /**
+     * Set a new JsonObject as the settings
+     * @param jsonObject
+     */
     public void setSettings(JSONObject jsonObject)
     {
         this.settings = jsonObject;
     }
 
+    /**
+     * Save current settings.
+     * @param context Where it has been done.
+     */
     public void updateSettings(Context context)
     {
         this.writeToFile(this.settings.toString(), context);
     }
 
+    /**
+     * Save setting using custom JSONObject
+     * @param jsonObject JSONObject settings
+     * @param context Where it has been done.
+     */
     public void updateSettings(JSONObject jsonObject, Context context)
     {
         this.writeToFile(jsonObject.toString(), context);
     }
 
+    /**
+     * Write to config.json file. Basically saving the config into a local file on the Android device.
+     * @param data Data to write into the file
+     * @param context Where you did this operation.
+     */
     public void writeToFile(String data, Context context) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(this.file, Context.MODE_PRIVATE));
@@ -101,6 +145,11 @@ public class PrefManager {
         }
     }
 
+    /**
+     * Retreive the data from the config.json file. Will return null if not found or format is not json + Stackprint into the console log.
+     * @param context Where you did it.
+     * @return The data from the file as a String.
+     */
     public String readFromFile(Context context) {
 
         String ret = "";
@@ -134,6 +183,7 @@ public class PrefManager {
             this.settings = jsonObject;
         } catch (JSONException ex)
         {
+            ex.printStackTrace();
         }
 
         return ret;
