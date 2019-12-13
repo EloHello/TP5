@@ -12,4 +12,10 @@
     <string name="login">Create an account</string>
     <string name="mdp">Password</string>
     <string name="userName">Username</string>
+    <string name="wrongUser">Wrong user datas!</string>
+    <string name="serverSideError">Server couldn\'t process the request!</string>
+    <string name="requireFields">Please complete all fields!</string>
+    <string name="alreadyUser">Username already exists!</string>
+    <string name="darkmode">Darkmode</string>
+    <string name="confirmPrefs">Confirm</string>
 </resources>

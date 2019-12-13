@@ -17,6 +17,16 @@
     <string name="modifInfo">Modifier les informations</string>
     <string name="modifPhoto">Modifier la photo</string>
 
+    <string name="nointernet" translatable="false">No Internet!</string>
+    <string name="wrongUser">Mauvais identifiants!</string>
+    <string name="serverSideError">Le serveur n\' a pas pu traiter la demande!</string>
+    <string name="requireFields">Veuillez remplir tous les champs</string>
+    <string name="alreadyUser">Le nom d\'utilisateur est déjà utilisé!</string>
+
+    <string name="darkmode">Mode sombre</string>
+
+    <string name="confirmPrefs">Confirmer</string>
+
     <string-array name="listArray">
         <item>Français</item>
         <item>English</item>
