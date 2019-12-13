@@ -34,6 +34,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -263,10 +264,16 @@ public class MainPage extends AppCompatActivity {
                     }
                 }
 
-                ViewPager viewPager = (ViewPager) findViewById(R.id.photoSwipe);
+                final ViewPager viewPager = (ViewPager) findViewById(R.id.photoSwipe);
+
+
 
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     int lastpos = 0;
+                    boolean b = true;
+                    ArrayList<Integer> sids = new ArrayList<Integer>();
+                    ArrayList<String> surls = new ArrayList<String>();
+                    ArrayList<Integer> list = new ArrayList<Integer>();
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -274,35 +281,72 @@ public class MainPage extends AppCompatActivity {
 
                     @Override
                     public void onPageSelected(int position) {
-                        HashMap<String, String> datas = new HashMap<>();
-                        int loser=1;
-                        int winner=1;
-
-                        if(lastpos < position){ // DROITE
-
-                            ImageView im = (ImageView) findViewById(R.id.photoCompare);
-
-                            new DownloadImageTask(im)
-                                    .execute(TopImages.url + urls.get(lastpos));
-
-                            loser = TopID;
-                            TopID = ids.get(lastpos); // Nouveau champion
-                            winner = TopID;
+                        if(b){
+                            for (int i=0; i<ids.size(); i++) {
+                                list.add(new Integer(i));
+                            }
+                            sids = new ArrayList<Integer>();
+                            surls = new ArrayList<String>();
+                            Collections.shuffle(list);
+                            for (int i=0; i<4; i++) {
+                                sids.add(ids.get(list.get(i)));
+                                surls.add(urls.get(list.get(i)));
+                            }
+                            b=false;
                         }
-                        else if(lastpos > position) // GAUCHE
+                        if (position == 0)
                         {
-                            winner = TopID;
-                            loser = ids.get(lastpos);
+                            viewPager.setCurrentItem(2);
+                        }
+                        else if (position == 2){
 
                         }
-                        datas.put("user", "1");
-                        datas.put("upVote", String.valueOf(winner));
-                        datas.put("downVote", String.valueOf(loser));
+                        else{
+                            HashMap<String, String> datas = new HashMap<>();
+                            int loser=1;
+                            int winner=1;
+                            if(1 == position){ // DROITE
 
-                        System.out.println("WINNER : " + String.valueOf(winner) + " -- LOSER : " + String.valueOf(loser));
+                                ImageView im = (ImageView) findViewById(R.id.photoCompare);
 
-                        new DataSender(datas, TopImages.url + "program.php").execute();
-                        lastpos = position;
+                                new DownloadImageTask(im)
+                                        .execute(TopImages.url + surls.get(2));
+
+                                loser = TopID;
+                                TopID = sids.get(2); // Nouveau champion
+                                winner = TopID;
+                            }
+                            else if(3 == position) // GAUCHE
+                            {
+                                winner = TopID;
+                                loser = sids.get(2);
+
+                            }
+                            datas.put("user", "1");
+                            datas.put("upVote", String.valueOf(winner));
+                            datas.put("downVote", String.valueOf(loser));
+
+                            System.out.println("WINNER : " + String.valueOf(winner) + " -- LOSER : " + String.valueOf(loser));
+
+                            new DataSender(datas, TopImages.url + "program.php").execute();
+                            lastpos = position;
+
+
+                            sids = new ArrayList<Integer>();
+                            surls = new ArrayList<String>();
+                            Collections.shuffle(list);
+                            for (int i=0; i<4; i++) {
+                                sids.add(ids.get(list.get(i)));
+                                surls.add(urls.get(list.get(i)));
+                            }
+
+
+                            // Pass results to ViewPagerAdapter Class
+                            PagerAdapter adapter = new ViewPagerAdapter(MainPage.this, sids, surls);
+                            // Binds the Adapter to the ViewPager
+                            viewPager.setAdapter(adapter);
+                            viewPager.setCurrentItem(2);
+                        }
                     }
 
                     @Override
@@ -314,6 +358,7 @@ public class MainPage extends AppCompatActivity {
                 PagerAdapter adapter = new ViewPagerAdapter(MainPage.this, ids, urls);
                 // Binds the Adapter to the ViewPager
                 viewPager.setAdapter(adapter);
+                viewPager.setCurrentItem(2);
             }
         }
 
