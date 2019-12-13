@@ -28,7 +28,6 @@ import java.util.Map;
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity{
-
     Button boutonOk;
     Button boutonCreate;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity{
     EditText pass;
 
     GatherData gatherData = null;
-
 
     @Override
     protected void onActivityResult(int requestCode, int ResponseCode, Intent resultIntent)
@@ -77,6 +75,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        PrefManager.getInstance().setup(this);
     }
 
     /**
@@ -106,7 +105,9 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-
+    /**
+     * Class to retreive datas.
+     */
     public class GatherData extends AsyncTask<String, Void, String>
     {
 

@@ -1,26 +1,32 @@
 package ca.elohello.tp2;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+/**
+ * Setting class that handles the settings options.
+ */
 public class AccountInfo extends AppCompatActivity {
 
     TextView info;
     ImageButton boutonMessages;
     ImageButton boutonFeu;
+    Button button;
+    SwitchCompat notif;
+    SwitchCompat datas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,8 @@ public class AccountInfo extends AppCompatActivity {
         boutonMessages = (ImageButton) findViewById(R.id.messagerie);
 
         boutonFeu = (ImageButton) findViewById(R.id.feu);
+
+        button = (Button) findViewById(R.id.button);
 
         boutonFeu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +57,31 @@ public class AccountInfo extends AppCompatActivity {
             }
         });
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateSettings();
+            }
+        });
 
-        final Spinner spinner = (Spinner) findViewById(R.id.spinnerLangue);
+
+
+
+        JSONObject settings = PrefManager.getInstance().getSettings();
+
+        notif = (SwitchCompat) findViewById(R.id.switch2);
+        datas = (SwitchCompat) findViewById(R.id.switch3);
+        try
+        {
+            notif.setChecked(settings.getBoolean("notification"));
+            datas.setChecked(settings.getBoolean("shareData"));
+        } catch (JSONException ex)
+        {
+
+        }
+
+
+        /*final Spinner spinner = (Spinner) findViewById(R.id.spinnerLangue);
         ArrayList<String> items = new ArrayList<>();
 
         items.add("Francais");
@@ -70,9 +101,28 @@ public class AccountInfo extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
     }
 
+    /**
+     * Update the stats
+     */
+    public void updateSettings()
+    {
+        try {
+            JSONObject jsonObject = PrefManager.getInstance().getSettings();
+            jsonObject.put("notification", notif.isChecked());
+            jsonObject.put("shareData", datas.isChecked());
+            PrefManager.getInstance().updateSettings(jsonObject, this);
+
+            Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
+            
+            Log.i("INFO", "Setting updated!");
+        } catch (JSONException ex)
+        {
+            Log.e("Exception", "ERROR ON SAVING SETTINGS");
+        }
+    }
 
 }

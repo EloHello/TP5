@@ -126,7 +126,6 @@ public class CreateAccount extends AppCompatActivity {
         }
         else
         {
-            //TODO: Make string =)
             Toast.makeText(this, getString(R.string.requireFields), Toast.LENGTH_SHORT).show();
         }
 

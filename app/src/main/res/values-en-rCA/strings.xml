@@ -19,4 +19,6 @@
     <string name="darkmode">Darkmode</string>
     <string name="confirmPrefs">Confirm</string>
     <string name="language">Language</string>
+    <string name="dataSharing">Data saving mode</string>
+    <string name="saved">Saved!</string>
 </resources>

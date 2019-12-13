@@ -29,6 +29,10 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+/**
+ * Custom adapter for Recycle view see {@link TopImages}
+ *
+ */
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<Image> people;
@@ -88,12 +92,19 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.display(t);
     }
 
+    /**
+     * Clear the list & update changes
+     */
     public void clear()
     {
         people.clear();
         notifyDataSetChanged();
     }
 
+    /**
+     * Make a new list & update changes
+     * @param people Image list
+     */
     public void setNewList(ArrayList<Image> people)
     {
         this.people = people;

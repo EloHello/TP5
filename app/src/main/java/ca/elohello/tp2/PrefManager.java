@@ -15,6 +15,8 @@ import java.io.OutputStreamWriter;
 
 /**
  * Have the method required to read files around the app.
+ * @author William D'Anjou
+ * @version 1.0
  */
 public class PrefManager {
 
@@ -26,14 +28,65 @@ public class PrefManager {
     private JSONObject settings;
     private String file = "config.json";
 
+    public JSONObject buildDefault()
+    {
+        JSONObject object = new JSONObject();
+        try
+        {
+            object.put("notification", true);
+            object.put("shareData", false);
+
+        } catch (JSONException ex)
+        {
+
+        }
+
+        return object;
+    }
+
+    /**
+     * Setup method.
+     * @param context
+     */
+    public void setup(Context context)
+    {
+        String results = this.readFromFile(context);
+        if(results != null)
+        {
+            try
+            {
+              JSONObject jsonObject = new JSONObject(results);
+              this.settings = jsonObject;
+            } catch (JSONException ex)
+            {
+                this.settings = buildDefault();
+            }
+        }
+        else
+        {
+            //Default config;
+            this.settings = this.buildDefault();
+        }
+    }
+
     public JSONObject getSettings()
     {
         return this.settings;
     }
 
+    public void setSettings(JSONObject jsonObject)
+    {
+        this.settings = jsonObject;
+    }
+
     public void updateSettings(Context context)
     {
         this.writeToFile(this.settings.toString(), context);
+    }
+
+    public void updateSettings(JSONObject jsonObject, Context context)
+    {
+        this.writeToFile(jsonObject.toString(), context);
     }
 
     public void writeToFile(String data, Context context) {
@@ -80,7 +133,6 @@ public class PrefManager {
             this.settings = jsonObject;
         } catch (JSONException ex)
         {
-            ex.printStackTrace();
         }
 
         return ret;

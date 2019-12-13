@@ -39,6 +39,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Main page where the magic happens.
+ */
 public class MainPage extends AppCompatActivity {
 
     ImageButton boutonCompte;
@@ -76,6 +79,9 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
+        /**
+         * All image class Loader.
+         */
         class JsonTask extends AsyncTask<String, String, String> {
 
             public void readJson(String data)
@@ -369,8 +375,6 @@ public class MainPage extends AppCompatActivity {
                         viewPager.setCurrentItem(1);
                     }
                 });
-
-
             }
         }
         new JsonTask().execute(TopImages.url + "program.php?test");

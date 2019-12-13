@@ -10,13 +10,25 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.lang.reflect.Field;
 
+/**
+ * Custom view pager.
+ */
 public class CustomViewPager extends ViewPager {
 
+    /**
+     * Constructor
+     * @param context
+     */
     public CustomViewPager(Context context) {
         super(context);
         setMyScroller();
     }
 
+    /**
+     * Constructor with arguments
+     * @param context
+     * @param attrs
+     */
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         setMyScroller();
@@ -36,6 +48,9 @@ public class CustomViewPager extends ViewPager {
 
     //down one is added for smooth scrolling
 
+    /**
+     * Set the scroller
+     */
     private void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;
@@ -47,6 +62,9 @@ public class CustomViewPager extends ViewPager {
         }
     }
 
+    /**
+     * Viewpager scroller. (Speed / durations)
+     */
     public class MyScroller extends Scroller {
         public MyScroller(Context context) {
             super(context, new DecelerateInterpolator());

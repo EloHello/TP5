@@ -21,6 +21,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Second page Adapter for lower swipe image.
+ */
 public class ViewPagerAdapter extends PagerAdapter {
     Context context;
     ArrayList<String> images;
@@ -84,7 +87,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
                 if(result == null)
                 {
-                    bmImage.setImageResource(R.drawable.bonhomme);
+                    bmImage.setImageResource(R.drawable.bonhomme); // Default image. in case something went wrong.
                 }
             }
         }

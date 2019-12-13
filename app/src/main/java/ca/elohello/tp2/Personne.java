@@ -2,6 +2,10 @@ package ca.elohello.tp2;
 
 import java.io.Serializable;
 
+/**
+ * Represent User data. Was used before as the project was for Tinder.
+ * @deprecated
+ */
 public class Personne implements Serializable {
     protected String name;
     protected String lastName;

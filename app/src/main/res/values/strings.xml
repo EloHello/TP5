@@ -25,6 +25,10 @@
 
     <string name="darkmode">Mode sombre</string>
     <string name="language">Langue</string>
+    <string name="notif" translatable="false">Notification</string>
+    <string name="dataSharing">Mode économie de données</string>
+
+    <string name="saved">Enregistré!</string>
 
     <string name="confirmPrefs">Confirmer</string>
 
