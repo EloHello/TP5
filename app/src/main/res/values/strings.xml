@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TP2</string>
+    <string name="app_name">Rate this</string>
 
     <string name="login">Pas de compte? Cliquez ici.</string>
 
@@ -7,6 +7,7 @@
     <string name="motDePasse">Mot de passe</string>
     <string name="ok" translatable="false">OK</string>
 
+    <string name="userName">Nom d\'utilisateur</string>
     <string name="nom">Nom</string>
     <string name="prenom">Prenom</string>
     <string name="email">Email</string>
@@ -15,5 +16,21 @@
 
     <string name="modifInfo">Modifier les informations</string>
     <string name="modifPhoto">Modifier la photo</string>
+
+    <string name="nointernet" translatable="false">No Internet!</string>
+    <string name="wrongUser">Mauvais identifiants!</string>
+    <string name="serverSideError">Le serveur n\' a pas pu traiter la demande!</string>
+    <string name="requireFields">Veuillez remplir tous les champs</string>
+    <string name="alreadyUser">Le nom d\'utilisateur est déjà utilisé!</string>
+
+    <string name="darkmode">Mode sombre</string>
+    <string name="language">Langue</string>
+    <string name="notif" translatable="false">Notification</string>
+    <string name="dataSharing">Mode économie de données</string>
+    <string name="buggyFeatures">Utiliser les fonctionalités en bêta.</string>
+
+    <string name="saved">Enregistré!</string>
+
+    <string name="confirmPrefs">Confirmer</string>
 
 </resources>

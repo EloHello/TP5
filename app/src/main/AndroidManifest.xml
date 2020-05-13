@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/secure_links"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -16,10 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainPage"></activity>
-        <activity android:name=".CreateAccount"></activity>
-        <activity android:name=".AccountInfo"></activity>
-        <activity android:name=".Messages"></activity>
+        <activity android:name=".MainPage" android:launchMode="singleInstance" ></activity>
+        <activity android:name=".CreateAccount" android:launchMode="singleInstance"></activity>
+        <activity android:name=".AccountInfo" android:launchMode="singleInstance"></activity>
+        <activity android:name=".TopImages" android:launchMode="singleInstance"></activity>
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

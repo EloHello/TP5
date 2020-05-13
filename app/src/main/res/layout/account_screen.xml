@@ -52,37 +52,48 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/photoProfilAccount"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="75dp"
-        app:srcCompat="@drawable/bonhomme" />
-
-    <TextView
-        android:id="@+id/infoPersonnelle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
         android:layout_weight="1"
-        android:gravity="center" />
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp">
+
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch2"
+            style="@style/SwitchCompatStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notif" />
+
+        <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch3"
+        style="@style/SwitchCompatStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dataSharing" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch4"
+            style="@style/SwitchCompatStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buggyFeatures" />
+
+
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/boutonModifInfo"
+        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:layout_weight="1"
-        android:text="@string/modifInfo" />
-
-    <Button
-        android:id="@+id/boutonModifPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_weight="1"
-        android:text="@string/modifPhoto" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/confirmPrefs" />
 
 </LinearLayout>

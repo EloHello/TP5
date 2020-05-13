@@ -1,23 +1,46 @@
 package ca.elohello.tp2;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
+/**
+ * Custom adapter for Recycle view see {@link TopImages}
+ *
+ */
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<Image> people;
-    Messages activityMessages;
+    TopImages activityTopImages;
     String nom;
 
-    public MyAdapter(Messages activityMessages, ArrayList<Image> people) {
-        this.activityMessages = activityMessages;
+    public MyAdapter(TopImages activityTopImages, ArrayList<Image> people) {
+        this.activityTopImages = activityTopImages;
         this.people = people;
     }
 
@@ -26,30 +49,33 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView name;
 
         private Image currentPerson;
+        private ImageView imageViewer;
+        private TextView imgPosition;
+        private TextView imgRating;
+
+        // Class to send HTTP POST DATA;
+
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-
-            name = itemView.findViewById(R.id.nomImage);
+            imageViewer = itemView.findViewById(R.id.photoImage);
+            imgPosition = itemView.findViewById(R.id.positionImage);
+            imgRating = itemView.findViewById(R.id.rating);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    nom = currentPerson.getNomImage();
-
-                    System.out.println(nom);
-
-                    Intent intent = new Intent(view.getContext(), MainActivity.class);
-                    //intent.putExtra("unite", unite);
-                    view.getContext().startActivity(intent);
                 }
             });
         }
 
         public void display(Image list) {
             currentPerson = list;
-            name.setText(list.getNomImage());
+            Picasso.get().load(currentPerson.getImagePath()).into(imageViewer);
+            //name.setText(list.getNomImage());
+            imgPosition.setText(String.valueOf(currentPerson.getPosition()) + ".");
+            imgRating.setText("Score :" + String.valueOf(currentPerson.getRating()));
         }
     }
 
@@ -66,8 +92,27 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.display(t);
     }
 
+    /**
+     * Clear the list & update changes
+     */
+    public void clear()
+    {
+        people.clear();
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Make a new list & update changes
+     * @param people Image list
+     */
+    public void setNewList(ArrayList<Image> people)
+    {
+        this.people = people;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return people.size();
+        return (people != null) ? people.size() : 0;
     }
 }

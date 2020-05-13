@@ -55,28 +55,36 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/photoCompare"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.75"
-        app:srcCompat="@drawable/bonhomme" />
 
-    <android.support.v4.view.ViewPager
-
-        android:id="@+id/view_pager"
-
+    <RelativeLayout
         android:layout_width="match_parent"
-
-        android:layout_height="match_parent" />
-
-
-    <ImageView
-        android:id="@+id/photoSwipe"
-        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bonhomme" />
+        >
+
+        <ImageView
+            android:id="@+id/photoCompare"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bonhomme" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <ca.elohello.tp2.CustomViewPager
+            android:id="@+id/photoSwipe"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bonhomme" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
